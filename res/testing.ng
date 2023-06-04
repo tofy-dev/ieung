@@ -1,0 +1,16 @@
+!  A Ieung Snippet 
+@  example test
+
+!! This is an example of how to use lists
+.  foo
+.  baz
+.. bar
+.3 bam
+.3 wam
+.4 woh
+
+#  a simple code snippet
+~  this is how you say hello in c++
+>  c++
+   std::cout << "Hello, World!";
+>

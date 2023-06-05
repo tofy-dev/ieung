@@ -1,0 +1,17 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "Hasklug Nerd Font Mono"
+}
+
+li {
+  margin-left: 20px;
+}
+
+li li {
+  margin-left: 40px;
+}
+
+li li li {
+  margin-left: 60px;
+}

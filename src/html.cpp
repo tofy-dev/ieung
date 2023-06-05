@@ -37,7 +37,7 @@ string Tag::genClose() { return genClose(0); }
 
 // genIndent
 string Tag::genIndent(int amt) {
-  return string(amt, '\t');
+  return string(amt*2, ' ');
 }
 
 string generatePage(const vector<pair<Tag, int>>& elements) {

@@ -2,10 +2,16 @@
 #include "html.hpp"
 
 using namespace std;
+enum types{BLANK, TITLE, TAG, COMMENT, LIST};
+
+int prevLayer = 0;
+int prevLine = -1;
 
 vector<pair<html::Tag, int>> elements{
   {html::Tag("html", ""), 0},
   {html::Tag("meta", ""), 1},
+  {html::Tag("head", ""), 1},
+  {html::Tag("link", "", {{"rel", "stylesheet"}, {"href", "res/stylesheets/dark.css"}}), 2},
   {html::Tag("body", ""), 1}
 };
 
@@ -18,20 +24,29 @@ int getLayer(string pre) {
 }
 
 void parseTitle(string pre, string post) {
-  cout << "TIT " << pre << " " << post << '\n';
+  // cout << "TIT " << pre << " " << post << '\n';
   int layer = getLayer(pre);
   elements.push_back({html::Tag("h"+to_string(layer), post), 2});
 }
 void parseTag(string pre, string post) {
-  cout << "TAG " << pre << " " << post << '\n';
+  // cout << "TAG " << pre << " " << post << '\n';
+  int layer = getLayer(pre);
 }
 void parseList(string pre, string post) {
-  cout << "LST " << pre << " " << post << '\n';
+  // cout << "LST " << pre << " " << post << '\n';
   int layer = getLayer(pre);
-  elements.push_back({html::Tag("li", post), layer+2});
+  if (prevLine != LIST) {
+    elements.push_back({html::Tag("ol", post), 2});
+  } else if (layer > prevLayer) { 
+    elements.push_back({html::Tag("ol", post), layer+2});
+    elements.push_back({html::Tag("li", post), layer+3});
+  } else {
+    elements.push_back({html::Tag("li", post), layer+2});
+  }
 }
 void parseText(string pre, string post) {
-  cout << "TXT " << pre << " " << post << '\n';
+  // cout << "TXT " << pre << " " << post << '\n';
+  int layer = getLayer(pre);
   elements.push_back({html::Tag("p", post), 2});
 }
 
@@ -39,7 +54,6 @@ void parse(string path) {
   ifstream fin(path);
 
   string line;
-  int prevLine = -1;
   while (std::getline(fin, line)) {
     if (line.length() < 2) continue;
 
@@ -49,31 +63,33 @@ void parse(string path) {
 
     if (pre.at(0) == 'x') {
       parseTitle(pre, post);
-      prevLine = 0;
+      prevLine = TITLE;
+      prevLayer = getLayer(pre);
     }
-    if (pre.at(0) == '@') {
+    else if (pre.at(0) == '@') {
       parseTag(pre, post);
-      prevLine = 1;
+      prevLine = TAG;
+      prevLayer = getLayer(pre);
     }
-    if (pre.at(0) == '.') {
-      if (prevLine != 2)
-        elements.push_back({html::Tag("ul", ""), 2});
+    else if (pre.at(0) == '.') {
       parseList(pre, post);
-      prevLine = 2;
+      prevLine = LIST;
+      prevLayer = getLayer(pre);
     }
-    if (pre.at(0) == '~') {
+    else if (pre.at(0) == '~') {
       parseText(pre, post);
-      prevLine = 3;
+      prevLine = COMMENT;
+      prevLayer = getLayer(pre);
+    }
+    else {
+      prevLine = BLANK;
+      prevLayer = getLayer(pre);
     }
   }
 }
 
 int main() {
-  parse("res/testing.ng");
-  for (auto elem : elements) {
-    cout << elem.first.type_ << " " << elem.second << '\n';
-  }
-
+  parse("res/examples/testing.ng");
   cout << html::generatePage(elements);
 }
 

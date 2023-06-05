@@ -21,5 +21,5 @@ struct Tag {
   static inline string genIndent(int);
 };
 
-string generatePage(const vector<pair<Tag, int>>& elements, int& idx);
+string generatePage(const vector<pair<Tag, int>>& elements);
 }

@@ -33,9 +33,10 @@ int main() {
   elements.push_back(make_pair(html::Tag("three", ""), 3));
   elements.push_back(make_pair(html::Tag("two", ""), 2));
   elements.push_back(make_pair(html::Tag("one", ""), 1));
+  elements.push_back(make_pair(html::Tag("two", ""), 2));
 
   int start = 0;
-  std::cout << html::generatePage(elements, start);
+  std::cout << html::generatePage(elements);
 }
 
 /*

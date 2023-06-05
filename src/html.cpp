@@ -40,26 +40,39 @@ string Tag::genIndent(int amt) {
   return string(amt, '\t');
 }
 
+string generatePage(const vector<pair<Tag, int>>& elements) {
+  std::string ret = "";
 
-string generatePage(const vector<pair<Tag, int>>& elements, int& idx) {
-  Tag tag = elements.at(idx).first;
-  int layer = elements.at(idx).second;
+  stack<Tag> closeTags{};
+  stack<int> closeLayers{};
 
-  bool createNested = false;
-  if (idx < elements.size()-1) {
-    int layerB = elements.at(idx+1).second;
-    if (layer < layerB) createNested = true;
+  Tag tag = elements.at(0).first;
+  int layer = elements.at(0).second;
+
+  ret += tag.genOpen(layer) + '\n';
+  closeTags.push(tag);
+  closeLayers.push(layer);
+
+  for (int e = 1; e < elements.size(); e++) {
+    tag = elements.at(e).first;
+    layer = elements.at(e).second;
+
+    // this has to be a while loop
+    while (layer <= closeLayers.top()) {
+      ret += closeTags.top().genClose(closeLayers.top()) + '\n';
+      closeTags.pop();
+      closeLayers.pop();
+    }
+    ret += tag.genOpen(layer) + '\n';
+    closeTags.push(tag);
+    closeLayers.push(layer);
   }
 
-  if (createNested) {
-    idx++; // continue adding elements
-    return tag.genOpen(layer) + '\n' + generatePage(elements, idx) + tag.genClose(layer) + '\n';
-  } else if (idx != elements.size()-1) {
-    idx++; // continue adding elements
-    return tag.genOpen(layer) + tag.genClose() + '\n' + generatePage(elements, idx);
-  } else {
-    // base case
-    return tag.genOpen(layer) + tag.innerText_ + tag.genClose() + '\n';
+  while (closeTags.size() > 0) {
+    ret += closeTags.top().genClose(closeLayers.top()) + '\n';
+    closeTags.pop();
+    closeLayers.pop();
   }
+  return ret;
 }
 }

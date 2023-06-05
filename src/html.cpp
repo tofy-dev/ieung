@@ -49,7 +49,7 @@ string generatePage(const vector<pair<Tag, int>>& elements) {
   Tag tag = elements.at(0).first;
   int layer = elements.at(0).second;
 
-  ret += tag.genOpen(layer) + '\n';
+  ret += tag.genOpen(layer) + tag.innerText_ + '\n';
   closeTags.push(tag);
   closeLayers.push(layer);
 
@@ -63,7 +63,7 @@ string generatePage(const vector<pair<Tag, int>>& elements) {
       closeTags.pop();
       closeLayers.pop();
     }
-    ret += tag.genOpen(layer) + '\n';
+    ret += tag.genOpen(layer) + tag.innerText_ + '\n';
     closeTags.push(tag);
     closeLayers.push(layer);
   }

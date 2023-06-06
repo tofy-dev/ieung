@@ -3,10 +3,12 @@ x  A Ieung Snippet
 #  this is a lovely comment
 
 xx Text
-~  The tilde notes that text follows
+~  The tilde notes that text follows.
+~  A quick brown fox jumps over the lazy dog.
+~  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 xx Lists
-x3 This is an example of how to use lists
+x3 Unordered Lists
 .  A
 .. B
 .3 C
@@ -14,3 +16,9 @@ x3 This is an example of how to use lists
 .3 C
 .. B
 .  A
+.. B
+.2 C
+.  A
+
+x3 Ordered Lists
+.  This has not been implemented yet.

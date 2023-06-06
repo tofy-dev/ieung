@@ -10,10 +10,9 @@ body {
   background-color: black;
   color: white;
 
-  font-family: "AnonymicePro Nerd Font Mono";
-  padding: 75px 75px 75px 75px;
+  font-family: "Jost", "AnonymicePro Nerd Font Mono";
+  padding: 75px 85px 75px 85px;
   margin-top: 50px;
-  border-radius: 10px;
 
   position: relative;
 }
@@ -24,51 +23,63 @@ br {
 
 h1 {
   all: unset;
-  display: inline;
-  border-width: 0px 0px 7px 0px;
+  font-size: 30px;
+
+  border-width: 0px 0px 10px 0px;
   border-style: solid;
   border-image-slice: 1;
   border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
-  font-size: 30px;
 }
 h1::before {
+  float: left;
   position: absolute;
   width: 40px;
-  content: ' ';
+  content: 'x ';
   text-align: right;
-  left: 10;
+  left: 30;
+}
+h1::after {
+  content: "\a";
+  white-space: pre;
 }
 
 h2 {
-  all: unset;
-  display: inline;
-  border-width: 0px 0px 4px 0px;
-  border-style: solid;
-  border-image-slice: 1;
-  border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
-  font-size: 20px;
+  margin: 20 0 0 0;
+  font-size: 25px;
 }
 h2::before {
   position: absolute;
   width: 40px;
-  content: ' ';
+  content: 'xx ';
   text-align: right;
-  left: 10;
+  left: 30;
+}
+h2::after {
+  content: "\a";
+  white-space: pre;
 }
 
 h3 {
-  all: unset;
-  display: inline;
+  margin: 10 0 0 0;
+  width: 100%;
   font-size: 20px;
 }
 h3::before {
   position: absolute;
   width: 40px;
-  content: ' ';
+  content: 'xxx ';
   text-align: right;
-  left: 10;
+  left: 30;
+}
+h3::after {
+  content: "\a";
+  white-space: pre;
 }
 
 p {
   all: unset;
+}
+
+ul {
+  margin: 0px;
 }

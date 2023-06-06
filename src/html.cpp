@@ -37,7 +37,7 @@ string Tag::genClose() { return genClose(0); }
 
 // genIndent
 string Tag::genIndent(int amt) {
-  amt += 1; // html div is -2, body is -1, therefore offset by 2
+  amt += 2; // html div is -2, body is -1, therefore offset by 2
   return string(amt*2, ' ');
 }
 

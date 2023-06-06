@@ -10,11 +10,11 @@ int prevLayer = 0;
 int prevLine = -1;
 
 vector<pair<html::Tag, int>> elements{
-  {html::Tag("html", ""), -1},
-  {html::Tag("meta", ""), 0},
-  {html::Tag("head", ""), 0},
-  {html::Tag("link", "", {{"rel", "stylesheet"}, {"href", "res/stylesheets/dark.css"}}), 1},
-  {html::Tag("body", ""), 0}
+  {html::Tag("html", ""), -2},
+  {html::Tag("meta", ""), -1},
+  {html::Tag("head", ""), -1},
+  {html::Tag("link", "", {{"rel", "stylesheet"}, {"href", "res/stylesheets/dark.css"}}), 0},
+  {html::Tag("body", ""), -1}
 };
 
 
@@ -29,39 +29,36 @@ int getLayer(string pre) {
 
 void printElements() {
   for (auto elem : elements) {
-    cout << elem.first.type_ << " " << elem.first.innerText_ << " " << elem.second << '\n';
+    cout << elem.first.type_ << " " << elem.second << '\n';
   }
-  cout << html::generatePage(elements);
 }
 
 
 // Parsing functions
 void parseTitle(string pre, string post) {
-  cout << "TIT " << pre << " " << post << '\n';
+  // cout << "TIT " << pre << " " << post << '\n';
   int layer = getLayer(pre);
   elements.push_back({html::Tag("h"+to_string(layer), post), 0});
 }
 
 void parseTag(string pre, string post) {
-  cout << "TAG " << pre << " " << post << '\n';
+  // cout << "TAG " << pre << " " << post << '\n';
   int layer = getLayer(pre);
 }
 
 void parseList(string pre, string post) {
-  cout << "LST " << pre << " " << post << '\n';
+  // cout << "LST " << pre << " " << post << '\n';
   int layer = getLayer(pre);
   if (layer == 1 || layer > prevLayer) { 
-    elements.push_back({html::Tag("ul", ""), layer*2-1});
-    elements.push_back({html::Tag("li", post), layer*2});
-  } else {
-    elements.push_back({html::Tag("li", post), layer*2});
+    elements.push_back({html::Tag("ul", ""), (layer-1)*2});
   }
+  elements.push_back({html::Tag("li", post), (layer-1)*2+1});
 }
 
 void parseText(string pre, string post) {
-  cout << "TXT " << pre << " " << post << '\n';
+  // cout << "TXT " << pre << " " << post << '\n';
   int layer = getLayer(pre);
-  elements.push_back({html::Tag("p", post), 1});
+  elements.push_back({html::Tag("p", post), 0});
 }
 
 void parse(string path) {
@@ -110,6 +107,7 @@ int main(int argc, char **argv) {
 
     // Define options
     engine::parse(inp);
+    engine::printElements();
     string htmlFile = html::generatePage(engine::elements);
 
     if (out == "") {

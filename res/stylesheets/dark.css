@@ -1,17 +1,74 @@
+html {
+  background-color: #0f0f0f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 body {
+  width: 800px;
   background-color: black;
   color: white;
-  font-family: "Hasklug Nerd Font Mono"
+
+  font-family: "AnonymicePro Nerd Font Mono";
+  padding: 75px 75px 75px 75px;
+  margin-top: 50px;
+  border-radius: 10px;
+
+  position: relative;
 }
 
-li {
-  margin-left: 20px;
+br {
+  all: unset;
 }
 
-li li {
-  margin-left: 20px;
+h1 {
+  all: unset;
+  display: inline;
+  border-width: 0px 0px 7px 0px;
+  border-style: solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
+  font-size: 30px;
+}
+h1::before {
+  position: absolute;
+  width: 40px;
+  content: ' ';
+  text-align: right;
+  left: 10;
 }
 
-li li li {
-  margin-left: 20px;
+h2 {
+  all: unset;
+  display: inline;
+  border-width: 0px 0px 4px 0px;
+  border-style: solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
+  font-size: 20px;
+}
+h2::before {
+  position: absolute;
+  width: 40px;
+  content: ' ';
+  text-align: right;
+  left: 10;
+}
+
+h3 {
+  all: unset;
+  display: inline;
+  font-size: 20px;
+}
+h3::before {
+  position: absolute;
+  width: 40px;
+  content: ' ';
+  text-align: right;
+  left: 10;
+}
+
+p {
+  all: unset;
 }

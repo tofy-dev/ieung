@@ -38,6 +38,7 @@ void parseTitle(string pre, string post) {
   // cout << "TIT " << pre << " " << post << '\n';
   int layer = getLayer(pre);
   elements.push_back({html::Tag("h"+to_string(layer), post), 0});
+  elements.push_back({html::Tag("br", ""), 0});
 }
 
 void parseTag(string pre, string post) {
@@ -58,6 +59,7 @@ void parseText(string pre, string post) {
   // cout << "TXT " << pre << " " << post << '\n';
   int layer = getLayer(pre);
   elements.push_back({html::Tag("p", post), 0});
+  elements.push_back({html::Tag("br", ""), 0});
 }
 
 void parse(string path) {

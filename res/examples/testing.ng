@@ -7,10 +7,10 @@ xx Text
 
 xx Lists
 x3 This is an example of how to use lists
-.  foo
-.. bar
-
-x3 This is another way of using lists
-.1 foo
-.2 bar
-.3 bam
+.  A
+.. B
+.3 C
+.2 B
+.3 C
+.4 D
+.1 A

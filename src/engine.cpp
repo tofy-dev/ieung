@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 #include "html.hpp"
+#include "engine.hpp"
+#include "CLI.hpp"
 
 using namespace std;
-enum types{BLANK, TITLE, TAG, COMMENT, LIST};
-
+namespace engine {
+// Global variables
 int prevLayer = 0;
 int prevLine = -1;
 
@@ -15,6 +17,8 @@ vector<pair<html::Tag, int>> elements{
   {html::Tag("body", ""), 0}
 };
 
+
+// Helper functions
 int getLayer(string pre) {
   char a = pre.at(0), b = pre.at(1);
   if (b == ' ') return 1;
@@ -23,15 +27,26 @@ int getLayer(string pre) {
   return 0;
 }
 
+void printElements() {
+  for (auto elem : elements) {
+    cout << elem.first.type_ << " " << elem.first.innerText_ << " " << elem.second << '\n';
+  }
+  cout << html::generatePage(elements);
+}
+
+
+// Parsing functions
 void parseTitle(string pre, string post) {
   cout << "TIT " << pre << " " << post << '\n';
   int layer = getLayer(pre);
   elements.push_back({html::Tag("h"+to_string(layer), post), 0});
 }
+
 void parseTag(string pre, string post) {
   cout << "TAG " << pre << " " << post << '\n';
   int layer = getLayer(pre);
 }
+
 void parseList(string pre, string post) {
   cout << "LST " << pre << " " << post << '\n';
   int layer = getLayer(pre);
@@ -42,6 +57,7 @@ void parseList(string pre, string post) {
     elements.push_back({html::Tag("li", post), layer*2});
   }
 }
+
 void parseText(string pre, string post) {
   cout << "TXT " << pre << " " << post << '\n';
   int layer = getLayer(pre);
@@ -77,17 +93,31 @@ void parse(string path) {
     prevLayer = getLayer(pre);
   }
 }
-
-int main() {
-  parse("res/examples/testing.ng");
-  for (auto elem : elements) {
-    cout << elem.first.type_ << " " << elem.first.innerText_ << " " << elem.second << '\n';
-  }
-  cout << html::generatePage(elements);
 }
 
-/*
-0 1 2 3
-a b c d
-len - idx
-*/
+// CLI interface
+int main(int argc, char **argv) {
+    CLI::App app{"App description"};
+
+    // Define options
+    std::string inp = "res/examples/testing.ng";
+    app.add_option("-i", inp, "Input file");
+
+    std::string out = "";
+    app.add_option("-o", out, "Output file");
+
+    CLI11_PARSE(app, argc, argv);
+
+    // Define options
+    engine::parse(inp);
+    string htmlFile = html::generatePage(engine::elements);
+
+    if (out == "") {
+      cout << htmlFile;
+    } else {
+      ofstream fout{out}; // this is dangerous and can overwrite files
+      fout << htmlFile;
+    }
+
+    return 0;
+}

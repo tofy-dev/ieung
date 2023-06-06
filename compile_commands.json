@@ -1,0 +1,41 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-c",
+      "-Iext/CLI",
+      "-o",
+      "bin/ieung.run",
+      "src/html.cpp"
+    ],
+    "directory": "/home/bob/Coding/projs/ieung",
+    "file": "/home/bob/Coding/projs/ieung/src/html.cpp",
+    "output": "/home/bob/Coding/projs/ieung/bin/ieung.run"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-c",
+      "-Iext/CLI",
+      "-o",
+      "bin/ieung.run",
+      "src/ieung.cpp"
+    ],
+    "directory": "/home/bob/Coding/projs/ieung",
+    "file": "/home/bob/Coding/projs/ieung/src/ieung.cpp",
+    "output": "/home/bob/Coding/projs/ieung/bin/ieung.run"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-c",
+      "-Iext/CLI",
+      "-o",
+      "bin/ieung.run",
+      "src/ng-gine.cpp"
+    ],
+    "directory": "/home/bob/Coding/projs/ieung",
+    "file": "/home/bob/Coding/projs/ieung/src/ng-gine.cpp",
+    "output": "/home/bob/Coding/projs/ieung/bin/ieung.run"
+  }
+]

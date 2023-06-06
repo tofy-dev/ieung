@@ -16,6 +16,6 @@ void parseList(string pre, string post);
 void parseText(string pre, string post);
 
 void parse(string path);
-
-int main(int argc, char **argv);
+void closeTag(int e, string& ret, stack<html::Tag>& closeTags, stack<int>& closeLayers);
+string generatePage();
 }

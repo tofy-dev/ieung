@@ -5,10 +5,12 @@ using namespace std;
 namespace html {
 // e.g. <html>, <div>, <a>
 struct Tag {
+  int id_;
   string type_;
   string innerText_;
   vector<pair<string, string>> attrs_;
 
+  Tag();
   Tag(string type, string innerText);
   Tag(string type, string innerText, vector<pair<string, string>> attrs);
 
@@ -20,6 +22,4 @@ struct Tag {
 
   static inline string genIndent(int);
 };
-
-string generatePage(const vector<pair<Tag, int>>& elements);
 }

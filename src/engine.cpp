@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include "html.hpp"
 #include "engine.hpp"
-#include "CLI.hpp"
 
 using namespace std;
 namespace engine {
@@ -90,32 +89,50 @@ void parse(string path) {
     prevLayer = getLayer(pre);
   }
 }
+
+
+// Generating functions
+void closeTag(int e, string& ret, stack<html::Tag>& closeTags, stack<int>& closeLayers) {
+  if (closeTags.top().id_ == e-1) {
+    ret += closeTags.top().genClose() + '\n';
+  } else {
+    ret += closeTags.top().genClose(closeLayers.top()) + '\n';
+  }
+  closeTags.pop();
+  closeLayers.pop();
 }
 
-// CLI interface
-int main(int argc, char **argv) {
-    CLI::App app{"App description"};
+string generatePage() {
+  std::string ret = "";
 
-    // Define options
-    std::string inp = "res/examples/testing.ng";
-    app.add_option("-i", inp, "Input file");
+  stack<html::Tag> closeTags{};
+  stack<int> closeLayers{};
 
-    std::string out = "";
-    app.add_option("-o", out, "Output file");
+  html::Tag tag;
+  int layer;
 
-    CLI11_PARSE(app, argc, argv);
+  int e;
+  for (e = 0; e < elements.size(); e++) {
+    tag = elements.at(e).first;
+    layer = elements.at(e).second;
+    tag.id_ = e;
 
-    // Define options
-    engine::parse(inp);
-    engine::printElements();
-    string htmlFile = html::generatePage(engine::elements);
-
-    if (out == "") {
-      cout << htmlFile;
-    } else {
-      ofstream fout{out}; // this is dangerous and can overwrite files
-      fout << htmlFile;
+    bool goUpLayer = false;
+    while (e > 0 && layer <= closeLayers.top()) {
+      closeTag(e, ret, closeTags, closeLayers);
+      goUpLayer = true;
     }
 
-    return 0;
+    if (!goUpLayer) ret += '\n';
+    ret += tag.genOpen(layer) + tag.innerText_;
+
+    closeTags.push(tag);
+    closeLayers.push(layer);
+  }
+
+  while (closeTags.size() > 0) {
+    closeTag(e, ret, closeTags, closeLayers);
+  }
+  return ret;
+}
 }

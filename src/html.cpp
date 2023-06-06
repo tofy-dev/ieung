@@ -4,6 +4,7 @@ using namespace std;
 
 namespace html {
 // Constructors
+Tag::Tag() {};
 Tag::Tag(string type, string innerText)
   : type_{type}, innerText_{innerText} {};
 Tag::Tag(string type, string innerText, vector<pair<string, string>> attrs)
@@ -25,55 +26,19 @@ string Tag::genOpen(int layer) {
   ret += ">";
   return ret;
 }
-string Tag::genOpen() { return genOpen(0); }
+string Tag::genOpen() { return genOpen(-2); }
 
 
 // genClose
 string Tag::genClose(int layer) {
   return genIndent(layer) + "</" + type_ + ">"; 
 }
-string Tag::genClose() { return genClose(0); }
+string Tag::genClose() { return genClose(-2); }
 
 
 // genIndent
 string Tag::genIndent(int amt) {
   amt += 2; // html div is -2, body is -1, therefore offset by 2
   return string(amt*2, ' ');
-}
-
-string generatePage(const vector<pair<Tag, int>>& elements) {
-  std::string ret = "";
-
-  stack<Tag> closeTags{};
-  stack<int> closeLayers{};
-
-  Tag tag = elements.at(0).first;
-  int layer = elements.at(0).second;
-
-  ret += tag.genOpen(layer) + tag.innerText_ + '\n';
-  closeTags.push(tag);
-  closeLayers.push(layer);
-
-  for (int e = 1; e < elements.size(); e++) {
-    tag = elements.at(e).first;
-    layer = elements.at(e).second;
-
-    // this has to be a while loop
-    while (layer <= closeLayers.top()) {
-      ret += closeTags.top().genClose(closeLayers.top()) + '\n';
-      closeTags.pop();
-      closeLayers.pop();
-    }
-    ret += tag.genOpen(layer) + tag.innerText_ + '\n';
-    closeTags.push(tag);
-    closeLayers.push(layer);
-  }
-
-  while (closeTags.size() > 0) {
-    ret += closeTags.top().genClose(closeLayers.top()) + '\n';
-    closeTags.pop();
-    closeLayers.pop();
-  }
-  return ret;
 }
 }

@@ -1,5 +1,5 @@
 ieung:
-	c++ src/*.cpp -Iext/CLI -o bin/ieung.run
+	c++ src/*.cpp -Iext/CLI -o bin/ng_engine
 
 clean:
 	rm bin/*

@@ -10,15 +10,21 @@ xx Text
 xx Lists
 x3 Unordered Lists
 .  A
-.. B
-.3 C
-.4 D
-.3 C
-.. B
-.  A
-.. B
-.2 C
-.  A
+.2 Apple
+.2 Ant
+.  B
+.2 Banana
+.2 Bat
+.  C
+.2 Cat
+.2 Cookie
+.3 Chocolate Chip
 
 x3 Ordered Lists
-.  This has not been implemented yet.
+-  Do homework
+-  Learn Korean
+-  Exercise
+-  Be a certified gansta
+-2 Commit tax fraud
+-3 Create offshore bank account in Venezuela
+-2 Steal the Constitution from Nicholas Cage

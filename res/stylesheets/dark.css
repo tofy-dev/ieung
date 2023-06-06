@@ -10,7 +10,7 @@ body {
   background-color: black;
   color: white;
 
-  font-family: "Jost", "AnonymicePro Nerd Font Mono";
+  font-family: "Jost", "Hasklug Nerd Font Mono";
   padding: 75px 85px 75px 85px;
   margin-top: 50px;
 
@@ -34,7 +34,7 @@ h1::before {
   float: left;
   position: absolute;
   width: 40px;
-  content: 'x ';
+  content: '';
   text-align: right;
   left: 30;
 }
@@ -50,7 +50,7 @@ h2 {
 h2::before {
   position: absolute;
   width: 40px;
-  content: 'xx ';
+  content: '';
   text-align: right;
   left: 30;
 }
@@ -67,7 +67,7 @@ h3 {
 h3::before {
   position: absolute;
   width: 40px;
-  content: 'xxx ';
+  content: '';
   text-align: right;
   left: 30;
 }
@@ -81,5 +81,6 @@ p {
 }
 
 ul {
-  margin: 0px;
+  margin: 0;
+  padding-left: 30px;
 }

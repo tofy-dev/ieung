@@ -48,8 +48,9 @@ void parseTag(string pre, string post) {
 void parseList(string pre, string post) {
   // cout << "LST " << pre << " " << post << '\n';
   int layer = getLayer(pre);
-  if (layer == 1 || layer > prevLayer) { 
-    elements.push_back({html::Tag("ul", ""), (layer-1)*2});
+  string type = (pre.at(0) == '.') ? "ul" : "ol";
+  if ((layer == 1 && prevLine != LIST) || layer > prevLayer) { 
+    elements.push_back({html::Tag(type, ""), (layer-1)*2});
   }
   elements.push_back({html::Tag("li", post), (layer-1)*2+1});
 }
@@ -72,16 +73,17 @@ void parse(string path) {
     pre = line.substr(0, 2);
     post = line.substr(3, line.length()-3);
 
-    if (pre.at(0) == 'x') {
+    char ch = pre.at(0);
+    if (ch == 'x') {
       parseTitle(pre, post);
       prevLine = TITLE;
-    } else if (pre.at(0) == '@') {
+    } else if (ch == '@') {
       parseTag(pre, post);
       prevLine = TAG;
-    } else if (pre.at(0) == '.') {
+    } else if (ch == '.' || ch == '-') {
       parseList(pre, post);
       prevLine = LIST;
-    } else if (pre.at(0) == '~') {
+    } else if (ch == '~') {
       parseText(pre, post);
       prevLine = COMMENT;
     } else {

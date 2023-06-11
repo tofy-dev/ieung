@@ -80,7 +80,7 @@ p {
   all: unset;
 }
 
-ul {
+ul, ol {
   margin: 0;
   padding-left: 30px;
 }
